@@ -17,14 +17,14 @@ const ERPNavbar = () => {
                 { name: 'Dashboard', path: '/dashboard', icon: '📊' },
                 { name: 'Academic ERP', path: '/admin/academic', icon: '🏛️' },
                 { name: 'Finance & Fees', path: '/fees', icon: '💳' },
+                { name: 'Admissions', path: '/admissions', icon: '📋' },
+                { name: 'LMS Portal', path: '/lms', icon: '🎓' },
+                { name: 'Research', path: '/research', icon: '🔬' },
+                { name: 'Alumni', path: '/alumni', icon: '🌐' },
                 { name: 'Facilities', path: '/campus/logistics', icon: '🚌' },
                 { name: 'Compliance', path: '/admin/compliance', icon: '🏆' },
                 { name: 'AI Insights', path: '/ai/insights', icon: '✨' },
-                { name: 'Examinations', path: '/admin/exams', icon: '📝' },
-                { name: 'Library', path: '/library', icon: '📚' },
-                { name: 'Placements', path: '/placements', icon: '💼' },
-                { name: 'Vault', path: '/documents', icon: '📁' },
-                { name: 'Reports', path: '/admin/reports', icon: '📈' },
+                { name: 'System Ops', path: '/admin/system', icon: '⚡' },
                 { name: 'Settings', path: '/admin/settings', icon: '⚙️' }
             ];
         }
@@ -47,12 +47,12 @@ const ERPNavbar = () => {
         if (user?.role === 'student') {
             return [
                 { name: 'Academic Portal', path: '/student/portal', icon: '🎓' },
+                { name: 'LMS Courseware', path: '/lms', icon: '📖' },
                 { name: 'Fee Portal', path: '/fees', icon: '💳' },
                 { name: 'Campus Hub', path: '/dashboard', icon: '🏛️' },
                 { name: 'Hostel & Transit', path: '/campus/logistics', icon: '🚌' },
-                { name: 'Library Catalog', path: '/library', icon: '📖' },
+                { name: 'Alumni Network', path: '/alumni', icon: '🌐' },
                 { name: 'Placement Drives', path: '/placements', icon: '💼' },
-                { name: 'Document Vault', path: '/documents', icon: '📁' },
                 { name: 'Quality Feedback', path: '/feedback', icon: '💬' }
             ];
         }

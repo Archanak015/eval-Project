@@ -35,6 +35,11 @@ import AIAcademicInsights from './pages/AI/AIAcademicInsights';
 import FeeManagementPortal from './pages/Finance/FeeManagementPortal';
 import HostelTransportPortal from './pages/Campus/HostelTransportPortal';
 import CompliancePortal from './pages/Admin/CompliancePortal';
+import LMSPortal from './pages/LMS/LMSPortal';
+import ResearchPortal from './pages/Research/ResearchPortal';
+import AlumniPortal from './pages/Alumni/AlumniPortal';
+import AdmissionPortal from './pages/Admission/AdmissionPortal';
+import SystemAdminPortal from './pages/Admin/SystemAdminPortal';
 import ERPLayout from './components/ERPLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -80,6 +85,21 @@ function App() {
 
                             {/* Phase 24 - NAAC / NBA Compliance & Accreditation */}
                             <Route path="/admin/compliance" element={<CompliancePortal />} />
+
+                            {/* Phase 26 - Learning Management System */}
+                            <Route path="/lms" element={<LMSPortal />} />
+
+                            {/* Phase 27 - Research & Innovation */}
+                            <Route path="/research" element={<ResearchPortal />} />
+
+                            {/* Phase 28 - Alumni Relations */}
+                            <Route path="/alumni" element={<AlumniPortal />} />
+
+                            {/* Phase 29 - Admissions Management */}
+                            <Route path="/admissions" element={<AdmissionPortal />} />
+
+                            {/* Phases 34 & 35 - System Administration & BI */}
+                            <Route path="/admin/system" element={<SystemAdminPortal />} />
 
                             {/* Student Dedicated Portal */}
                             <Route path="/student/portal" element={<StudentDashboard />} />

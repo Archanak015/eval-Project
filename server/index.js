@@ -110,6 +110,7 @@ app.use('/api/erp', require('./routes/academicApiRoutes'));
 app.use('/api/enterprise', require('./routes/enterpriseRoutes'));
 app.use('/api/v2', require('./routes/v2Routes'));
 app.use('/api/saas', require('./routes/saasModuleRoutes'));
+app.use('/api/advanced', require('./routes/enterpriseAdvancedRoutes'));
 
 // 10. 404 Route Handler
 app.use((req, res, next) => {
