@@ -32,6 +32,9 @@ import LibraryPortal from './pages/Library/LibraryPortal';
 import PlacementPortal from './pages/Placement/PlacementPortal';
 import DocumentVaultPortal from './pages/Documents/DocumentVaultPortal';
 import AIAcademicInsights from './pages/AI/AIAcademicInsights';
+import FeeManagementPortal from './pages/Finance/FeeManagementPortal';
+import HostelTransportPortal from './pages/Campus/HostelTransportPortal';
+import CompliancePortal from './pages/Admin/CompliancePortal';
 import ERPLayout from './components/ERPLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -68,6 +71,15 @@ function App() {
 
                             {/* Phase 10 - Institutional Document Vault */}
                             <Route path="/documents" element={<DocumentVaultPortal />} />
+
+                            {/* Phase 19 - Finance & Fees */}
+                            <Route path="/fees" element={<FeeManagementPortal />} />
+
+                            {/* Phases 21 & 22 - Campus Facilities & Logistics */}
+                            <Route path="/campus/logistics" element={<HostelTransportPortal />} />
+
+                            {/* Phase 24 - NAAC / NBA Compliance & Accreditation */}
+                            <Route path="/admin/compliance" element={<CompliancePortal />} />
 
                             {/* Student Dedicated Portal */}
                             <Route path="/student/portal" element={<StudentDashboard />} />

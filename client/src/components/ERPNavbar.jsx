@@ -16,6 +16,9 @@ const ERPNavbar = () => {
             return [
                 { name: 'Dashboard', path: '/dashboard', icon: '📊' },
                 { name: 'Academic ERP', path: '/admin/academic', icon: '🏛️' },
+                { name: 'Finance & Fees', path: '/fees', icon: '💳' },
+                { name: 'Facilities', path: '/campus/logistics', icon: '🚌' },
+                { name: 'Compliance', path: '/admin/compliance', icon: '🏆' },
                 { name: 'AI Insights', path: '/ai/insights', icon: '✨' },
                 { name: 'Examinations', path: '/admin/exams', icon: '📝' },
                 { name: 'Library', path: '/library', icon: '📚' },
@@ -44,7 +47,9 @@ const ERPNavbar = () => {
         if (user?.role === 'student') {
             return [
                 { name: 'Academic Portal', path: '/student/portal', icon: '🎓' },
+                { name: 'Fee Portal', path: '/fees', icon: '💳' },
                 { name: 'Campus Hub', path: '/dashboard', icon: '🏛️' },
+                { name: 'Hostel & Transit', path: '/campus/logistics', icon: '🚌' },
                 { name: 'Library Catalog', path: '/library', icon: '📖' },
                 { name: 'Placement Drives', path: '/placements', icon: '💼' },
                 { name: 'Document Vault', path: '/documents', icon: '📁' },

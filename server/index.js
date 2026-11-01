@@ -22,7 +22,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 // 3. NoSQL Injection Sanitization
-app.use(mongoSanitize());
+// mongoSanitize default can cause 'Cannot set property query of IncomingMessage' in Express 5 / newer Node
+app.use((req, res, next) => {
+    try {
+        if (req.body) mongoSanitize.sanitize(req.body);
+        if (req.params) mongoSanitize.sanitize(req.params);
+    } catch (e) {}
+    next();
+});
 
 // 4. Rate Limiting (Prevents Brute-Force & Denial-of-Service)
 const globalLimiter = rateLimit({
@@ -102,6 +109,7 @@ app.use('/api/student', require('./routes/studentRoutes'));
 app.use('/api/erp', require('./routes/academicApiRoutes'));
 app.use('/api/enterprise', require('./routes/enterpriseRoutes'));
 app.use('/api/v2', require('./routes/v2Routes'));
+app.use('/api/saas', require('./routes/saasModuleRoutes'));
 
 // 10. 404 Route Handler
 app.use((req, res, next) => {
