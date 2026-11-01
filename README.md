@@ -1,90 +1,195 @@
-# UniConnect Enterprise Campus ERP — Comprehensive Production Documentation (v1.0.0)
+# UniConnect — University Academic & Campus Management System
 
-UniConnect is an enterprise-grade University Campus Management and Academic ERP platform built on the MERN stack (MongoDB, Express, React 18 with Vite, and Node.js). Designed for high-concurrency campus environments, it implements normalized database schemas, Zero Trust role authorization, an internal event bus, federated universal search, and 50+ enterprise modules.
+A full-stack university management platform built with the MERN stack (MongoDB, Express, React, Node.js). 
 
----
-
-## 🏛️ System Architecture & Platform Capabilities
-
-### 1. Core Academic Structure (Phases 1–6)
-- **Hierarchical Normalization**: `Department` ➔ `Course` ➔ `Semester` ➔ `Section` ➔ `Subject` ➔ `Faculty Assignment` ➔ `Student Registration`.
-- **Administrative Governance**: Complete administrative control over academic entities; students and faculty never self-assign courses.
-- **Attendance & Grading Engine**: Lecture registers with bulk toggles, calculation of attendance thresholds (<75% warning), and marks entry across ESA, ISA 1, ISA 2, Labs, and Quizzes.
-
-### 2. Multi-Disciplinary Campus Modules (Phases 7–18)
-- **Library Management**: Accession numbering, ISBN tracking, catalog circulation, borrowing limits, and automated overdue penalty calculation.
-- **Placement & Corporate Relations**: Company recruitment drives, eligibility filters (min CGPA, backlogs), application submission, and interview tracking.
-- **Digital Document Vault**: Institutional certificates, transcripts, migration records, and verifications with secure hashes and download streams.
-- **AI-Powered Academic Insights**: Rule-based and predictive models identifying low-attendance risks, academic intervention alerts, and study recommendations.
-- **Multi-Tenant Campus Isolation**: Multi-institution campus data separation with custom branding, logos, and academic calendars.
-
-### 3. Enterprise Operations & Campus Services (Phases 19–25)
-- **Finance & Fee Management**: Multi-component fee structures (tuition, laboratory, caution deposit, exams), balance-due ledger, and payment receipt generation.
-- **Campus Facilities & Logistics**:
-  - Residential hall / hostel registers with occupancy meters, room allocations, mess fees, and warden logs.
-  - University transport bus fleet tracking, designated pickup/drop stops, and annual transit pass billing.
-- **Compliance & Accreditation Vault**: NAAC (Criteria 1–7), NBA, and NIRF institutional quality score tracking, SSR evidence vaults, and compliance readiness reports.
-- **HR & Payroll**: Employee service history, salary slips with allowances/deductions (PF, PT, IT), leave balances, and appraisal scores.
-- **Asset & Equipment Inventory**: Lab equipment, smart boards, computing assets, warranty expiry tracking, and purchase orders.
-
-### 4. Advanced Ecosystem & Digital Campus (Phases 26–35)
-- **Interactive LMS**: Course modules, video lecture streams, lecture notes, assignment uploaders, and instant-graded MCQ quizzes.
-- **Research & Innovation Vault**: Tracking sponsored grants (DST-SERB, AICTE), IEEE/ACM journal publications, citation metrics (h-index), and patents.
-- **Alumni Relations & Mentorship**: Global graduate directory across top technology firms, mentor matching, and endowment scholarship contributions.
-- **Admission & Merit Roster**: Applicant registration, entrance exam ranking, automated composite merit calculation, and seat allotment.
-- **System Administration & BI Analytics**: Cluster health metrics, Node.js process heap memory monitoring, scheduled cron queues, and departmental yield comparison.
-
-### 5. High-Scale Enterprise Foundations (Phases 36–50)
-- **Lightweight Event-Driven Architecture**: Native Node.js `ERPEventBus` decoupling business event triggers (`STUDENT_REGISTERED`, `ATTENDANCE_MARKED`, `RESULT_PUBLISHED`, `WORKFLOW_TRIGGERED`).
-- **Federated Universal Search**: Global search across students, faculty, subjects, and courses with debounce and instant indexing.
-- **Multi-Stage Approval Workflows**: Declarative approval chains for leave requests, seat allotments, and procurement orders with audit trails.
-- **Developer API Ecosystem**: SHA-256 hashed API key provisioning, rate limiting, and event webhook subscriptions.
+UniConnect was designed to solve a common problem in campus administration: fragmented software tools. Instead of using separate portals for attendance, internal exams, fees, library access, and course syllabi, UniConnect brings students, faculty, and administrative staff into a single, cohesive system with role-based access control.
 
 ---
 
-## 🔒 Security Hardening & Zero Trust Policy
+## Overview & Why I Built This
 
-1. **Helmet HTTP Headers**: Enforces strict CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, and referrer policies.
-2. **Rate Limiting**:
-   - Global API limiter: 600 requests per 15 minutes per IP.
-   - Auth limiter: 30 requests per 15 minutes on sensitive authentication endpoints.
-3. **NoSQL Injection Sanitization**: Strips `$` and `.` operators from request bodies, parameters, and payloads.
-4. **Environment Validation**: Strict `zod` schema verification on server boot (`server/config/env.js`) for `MONGO_URI`, `JWT_SECRET`, and `CORS_ORIGIN`.
-5. **Strict RBAC & Tenant Scoping**: Role enforcement middleware (`protect`, `admin`, `faculty`, `student`) preventing horizontal and vertical privilege escalation.
-6. **Optimized Rollup Chunks**: Client bundle split into cached vendor, UI, and form chunks, eliminating monolithic script warnings.
+Most university campuses use disconnected legacy portals: one for exam hall tickets, another for fee receipts, a spreadsheet for attendance, and paper records for hostel allocations. 
+
+I built UniConnect to provide:
+1. **Clear Separation of Responsibilities**: Administrators configure departments, courses, and subjects; faculty manage attendance and grade assessments; students track their progress and review fee balances.
+2. **Strict Data Scoping**: Faculty only view students enrolled in subjects they teach. Students can only see their own grades, attendance records, and payment receipts.
+3. **Real-time Academic Visibility**: Automated calculation of attendance percentages with warnings when records dip below the 75% university eligibility threshold.
 
 ---
 
-## 🚀 Quickstart & Production Deployment
+## Key Features
 
-### 1. Prerequisites
+### For Students
+- **Dashboard & Academics**: View enrolled subjects, semester credits, and class timetable.
+- **Attendance Tracker**: Subject-wise breakdown showing attended vs. total lectures with visual percentage indicators.
+- **Grades & Transcripts**: Track Continuous Internal Assessment (ISA 1 & 2) and End Semester Assessment (ESA) scores.
+- **Fee Management**: Review semester tuition, lab, and exam fees, with printable receipts for completed transactions.
+- **Learning Resources (LMS)**: Access module-wise lecture notes, PDFs, assignments, and practice quizzes.
+- **Campus Services**: View hostel room allocations, mess fees, and bus transit routes.
+
+### For Faculty
+- **Assigned Subjects**: Overview of assigned courses and enrolled student directories.
+- **Daily Attendance Register**: Mark lecture attendance with one-click bulk toggles ("Mark All Present" / "Mark All Absent").
+- **Assessment Grading**: Enter marks for exams, quizzes, and practical assignments with automatic score validation.
+- **Timetable & Activity Tracking**: Weekly lecture schedules and personal teaching logs.
+
+### For Administrators
+- **Academic Setup**: Create and structure Departments, Courses (B.E, B.Tech, M.Tech), Semesters, Sections, and Subjects.
+- **Faculty Allocations**: Assign faculty members to specific subjects per semester.
+- **Student Admissions & Enrollments**: Process applications, review entrance ranks, and allocate departmental seats.
+- **Audit Logs & System Health**: Monitor active database connections, process memory usage, and background jobs.
+
+### Public Website & Parent Portal
+- **Public University Website**: Informational homepage highlighting departments, research initiatives, and admissions.
+- **Parent Portal**: Simple USN-based lookup allowing parents to check their ward's attendance percentage, exam marks, and proctor contact details without needing full ERP login credentials.
+
+---
+
+## Tech Stack
+
+- **Frontend**: React 18, Vite, Tailwind CSS, React Router v6, Headless UI, Heroicons, Formik & Yup
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JSON Web Tokens (JWT) stored in HTTP headers / cookies, bcrypt for password hashing
+- **Security & Utilities**: Helmet, express-rate-limit, express-mongo-sanitize, CORS
+
+---
+
+## Project Structure
+
+```text
+eval-Project-main/
+├── client/                     # Frontend React (Vite) application
+│   ├── src/
+│   │   ├── api/                # Axios instance with auth interceptors
+│   │   ├── components/         # Reusable UI (Navbar, Layout, StatCard, Modal, Breadcrumb)
+│   │   ├── context/            # AuthContext for session management
+│   │   ├── pages/              # Portal pages grouped by domain
+│   │   │   ├── Admin/          # Course, exam, reports, and system settings
+│   │   │   ├── Faculty/        # Attendance registers, grading, student directory
+│   │   │   ├── Student/        # Student dashboard, transcripts, profile
+│   │   │   ├── Finance/        # Fee management and transaction receipts
+│   │   │   ├── Campus/         # Hostel blocks and bus fleet logistics
+│   │   │   ├── LMS/            # Curriculum modules, video links, quizzes
+│   │   │   ├── Public/         # Public-facing university homepage
+│   │   │   ├── Parent/         # Parent self-service ward inquiry portal
+│   │   │   └── Search/         # Universal campus search
+│   │   ├── App.jsx             # Route definitions and layout wrappers
+│   │   └── main.jsx            # Entry point
+│   ├── package.json
+│   └── vite.config.js          # Rollup manual chunk configuration
+│
+├── server/                     # Backend Express REST API
+│   ├── config/                 # Environment validation (Zod) and DB connection
+│   ├── middleware/             # JWT authentication, role guards, rate limiters
+│   ├── models/                 # Normalized Mongoose schemas (Department, Subject, Attendance, etc.)
+│   ├── routes/                 # Express API routes
+│   ├── services/               # Lightweight event bus and background task handlers
+│   ├── utils/                  # Structured logger, API response helpers, async handlers
+│   ├── index.js                # Server entry point
+│   └── package.json
+│
+├── docker-compose.yml          # Multi-container local orchestration (App + MongoDB)
+└── README.md
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
 - Node.js (v18.x or v20.x LTS)
-- MongoDB (v6.x or v7.x)
+- MongoDB running locally on `mongodb://localhost:27017` (or a MongoDB Atlas URI)
 
-### 2. Backend Setup
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/uniconnect-erp.git
+cd uniconnect-erp
+```
+
+### 2. Configure Environment Variables
+
+**Server (`server/.env`)**:
+```env
+PORT=5000
+NODE_ENV=development
+MONGO_URI=mongodb://localhost:27017/uniconnect
+JWT_SECRET=your_super_secret_jwt_key_here
+JWT_EXPIRE=7d
+CORS_ORIGIN=http://localhost:5173
+```
+
+**Client (`client/.env`)**:
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+### 3. Install Dependencies & Seed Data
+
+In one terminal, set up and run the backend:
 ```bash
 cd server
 npm install
-npm run seed     # Seeds base academic data
-npm start        # Launches Express server on port 5000
+npm run seed        # Seeds sample departments, courses, subjects, and test accounts
+npm start
 ```
 
-### 3. Frontend Setup
+In a second terminal, run the frontend client:
 ```bash
 cd client
 npm install
-npm run build    # Generates optimized production assets in dist/
-npm run preview  # Previews production build locally
-# or npm run dev for hot-reloading development server
+npm run dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ---
 
-## 📋 Production Release Checklist (v1.0.0)
+## Default Test Credentials
 
-- [x] All 50 phase modules integrated without breaking legacy routes.
-- [x] Optimized client bundle code-splitting via Rollup `manualChunks`.
-- [x] Server health endpoint `/health` returns `200 OK` with database status `Connected`.
-- [x] MongoDB collections indexed on search keys and compound relational paths.
-- [x] Zero Trust JWT authentication guarding all administrative and student APIs.
-- [x] Reusable responsive UI components maintaining visual design consistency.
+| Role | Email | Password | Access Level |
+| :--- | :--- | :--- | :--- |
+| **Administrator** | `admin@uniconnect.edu` | `admin123` | Full institution setup, courses, users, and audit logs |
+| **Faculty Member** | `faculty@uniconnect.edu` | `faculty123` | Attendance, marks grading, and assigned student roster |
+| **Student** | `student@uniconnect.edu` | `student123` | Self-service attendance, grade cards, and fee receipts |
+
+---
+
+## API Overview
+
+All private endpoints require an `Authorization: Bearer <token>` header.
+
+| Endpoint | Method | Role | Description |
+| :--- | :--- | :--- | :--- |
+| `/api/auth/login` | POST | Public | Authenticates credentials and returns JWT token |
+| `/api/auth/me` | GET | Authenticated | Fetches currently logged-in user profile |
+| `/api/academic/departments` | GET / POST | Admin | Manage academic departments |
+| `/api/academic/courses` | GET / POST | Admin | Manage degree programs and courses |
+| `/api/attendance/mark` | POST | Faculty | Submit daily lecture attendance records |
+| `/api/exams/marks/upload` | POST | Faculty | Submit ISA / ESA marks for a class |
+| `/api/saas/fees/my-status` | GET | Student | Retrieve student fee balance and payment history |
+| `/api/saas/fees/pay` | POST | Student | Process fee installment and generate receipt |
+| `/api/final/search/universal` | GET | Authenticated | Federated search across students, faculty, and courses |
+| `/health` | GET | Public | Uptime status and database connection health check |
+
+---
+
+## Performance & Optimization Notes
+
+- **Client Bundle Splitting**: Reconfigured Vite build using Rollup `manualChunks` to split large third-party dependencies (`vendor`, `ui`, `form`) from application code. This reduced the main bundle size from 511 kB down to 296 kB (53 kB gzipped), eliminating browser parse warnings.
+- **Lean Mongoose Queries**: All read-heavy operations use `.lean()` to bypass Mongoose document hydration, speeding up response times on large class lists.
+- **Compound Database Indexes**: Added compound indexes on frequently queried combinations such as `{ subject: 1, date: 1 }` in Attendance and `{ course: 1, semester: 1 }` in Subjects.
+
+---
+
+## Known Limitations & Next Steps
+
+- **Payment Gateway**: The fee payment module currently generates realistic receipts and ledger balances using a mock transaction reference. Integration with live Razorpay or Stripe webhooks is planned.
+- **Push Notifications**: Notification events currently route through in-app toasts and database alerts; native mobile push integration (Firebase Cloud Messaging) is on the roadmap.
+- **Reporting Exports**: Basic reports are available directly in the UI and printable via browser styling; server-side PDF generation using Puppeteer is being evaluated.
+
+---
+
+## License
+
+This project is licensed under the MIT License — feel free to use and adapt it for learning or portfolio purposes.
