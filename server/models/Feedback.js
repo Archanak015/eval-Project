@@ -4,7 +4,12 @@ const feedbackSchema = new mongoose.Schema({
     student: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
+        required: [true, 'Student user reference is required'],
+        index: true
+    },
+    studentRef: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student',
         index: true
     },
     isAnonymous: {
@@ -13,7 +18,7 @@ const feedbackSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true,
+        required: [true, 'Category is required'],
         enum: [
             'Faculty',
             'Subject',
@@ -24,38 +29,56 @@ const feedbackSchema = new mongoose.Schema({
             'Placement',
             'Laboratory',
             'General Suggestion'
-        ]
+        ],
+        index: true
     },
     title: {
         type: String,
-        required: true,
+        required: [true, 'Title is required'],
         trim: true
     },
     description: {
         type: String,
-        required: true,
+        required: [true, 'Description is required'],
         trim: true
     },
     rating: {
         type: Number,
-        required: true,
+        required: [true, 'Rating is required (1-5)'],
         min: 1,
         max: 5
     },
     subject: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Subject'
+        ref: 'Subject',
+        index: true
     },
     faculty: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        index: true
+    },
+    facultyRef: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Faculty',
+        index: true
+    },
+    department: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Department',
+        index: true
+    },
+    academicYear: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'AcademicYear'
     },
     status: {
         type: String,
-        enum: ['Submitted', 'Under Review', 'Resolved'],
-        default: 'Submitted'
+        enum: ['Submitted', 'Under Review', 'Action Taken', 'Resolved', 'Dismissed'],
+        default: 'Submitted',
+        index: true
     },
-    response: {
+    adminResponse: {
         type: String,
         trim: true
     },
@@ -65,10 +88,20 @@ const feedbackSchema = new mongoose.Schema({
     },
     respondedAt: {
         type: Date
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    isActive: {
+        type: Boolean,
+        default: true,
+        index: true
     }
 }, { timestamps: true });
 
-feedbackSchema.index({ category: 1, status: 1 });
-feedbackSchema.index({ faculty: 1, status: 1 });
+feedbackSchema.index({ category: 1, rating: -1 });
+feedbackSchema.index({ faculty: 1, rating: -1 });
+feedbackSchema.index({ subject: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Feedback', feedbackSchema);

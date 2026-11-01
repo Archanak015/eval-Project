@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const academicYearSchema = new mongoose.Schema({
     year: { 
         type: String, 
-        required: true, 
+        required: [true, 'Academic year is required (e.g. 2026-27)'], 
         unique: true, 
         trim: true 
     }, // e.g. "2026-27", "2027-28"
@@ -15,12 +15,23 @@ const academicYearSchema = new mongoose.Schema({
     },
     isCurrent: { 
         type: Boolean, 
-        default: false 
+        default: false,
+        index: true
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     status: { 
         type: String, 
         enum: ['Active', 'Upcoming', 'Archived'], 
-        default: 'Active' 
+        default: 'Active',
+        index: true
+    },
+    isActive: {
+        type: Boolean,
+        default: true,
+        index: true
     }
 }, { timestamps: true });
 
