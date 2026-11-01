@@ -42,6 +42,8 @@ import AdmissionPortal from './pages/Admission/AdmissionPortal';
 import SystemAdminPortal from './pages/Admin/SystemAdminPortal';
 import WorkflowApprovalsPortal from './pages/Workflows/WorkflowApprovalsPortal';
 import UniversalSearchPortal from './pages/Search/UniversalSearchPortal';
+import PublicUniversityWebsite from './pages/Public/PublicUniversityWebsite';
+import ParentPortal from './pages/Parent/ParentPortal';
 import ERPLayout from './components/ERPLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -51,7 +53,10 @@ function App() {
             <Router>
                 <ToastContainer position="top-right" autoClose={3000} />
                 <Routes>
-                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/" element={<PublicUniversityWebsite />} />
+                    <Route path="/public" element={<PublicUniversityWebsite />} />
+                    <Route path="/parent/portal" element={<ParentPortal />} />
+                    <Route path="/legacy-landing" element={<LandingPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
 
@@ -108,6 +113,9 @@ function App() {
 
                             {/* Phase 43 - Workflow & Approval Engine */}
                             <Route path="/workflows" element={<WorkflowApprovalsPortal />} />
+
+                            {/* Module 5 - Parent Guardian Portal (Inside ERP layout option) */}
+                            <Route path="/parent" element={<ParentPortal />} />
 
                             {/* Student Dedicated Portal */}
                             <Route path="/student/portal" element={<StudentDashboard />} />
