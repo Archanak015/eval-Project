@@ -1,3 +1,5 @@
 {"timestamp":"2026-11-01T10:32:09.291Z","level":"INFO","message":"GET /api/saas/fees/structures","ip":"::1"}
 {"timestamp":"2026-11-01T11:15:09.177Z","level":"INFO","message":"GET /api/advanced/admissions/applications","ip":"::1"}
 {"timestamp":"2026-11-01T11:15:28.675Z","level":"INFO","message":"GET /health","ip":"::1"}
+{"timestamp":"2026-11-01T11:21:59.282Z","level":"INFO","message":"GET /api/final/workflows","ip":"::1"}
+{"timestamp":"2026-11-01T11:24:15.138Z","level":"INFO","message":"GET /health","ip":"::1"}
