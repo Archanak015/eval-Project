@@ -11,18 +11,17 @@ const ERPNavbar = () => {
         navigate('/login');
     };
 
-    // Navigation links per role
     const getNavLinks = () => {
         if (user?.role === 'admin' || user?.role === 'superadmin') {
             return [
                 { name: 'Dashboard', path: '/dashboard', icon: '📊' },
                 { name: 'Academic ERP', path: '/admin/academic', icon: '🏛️' },
-                { name: 'Courses', path: '/admin/courses', icon: '🎓' },
                 { name: 'Examinations', path: '/admin/exams', icon: '📝' },
-                { name: 'Students', path: '/faculty/student-list', icon: '🧑‍🎓' },
-                { name: 'Subjects', path: '/faculty/subjects', icon: '📚' },
-                { name: 'Timetable', path: '/faculty/timetable', icon: '🗓️' },
-                { name: 'Feedback', path: '/feedback', icon: '💬' }
+                { name: 'Library', path: '/library', icon: '📚' },
+                { name: 'Placements', path: '/placements', icon: '💼' },
+                { name: 'Vault', path: '/documents', icon: '📁' },
+                { name: 'Reports', path: '/admin/reports', icon: '📈' },
+                { name: 'Settings', path: '/admin/settings', icon: '⚙️' }
             ];
         }
 
@@ -33,10 +32,11 @@ const ERPNavbar = () => {
                 { name: 'Take Attendance', path: '/faculty/attendance', icon: '✅' },
                 { name: 'Upload Marks', path: '/faculty/marks', icon: '📝' },
                 { name: 'Student Directory', path: '/faculty/student-list', icon: '🧑‍🎓' },
+                { name: 'Library', path: '/library', icon: '📖' },
+                { name: 'Placements', path: '/placements', icon: '💼' },
                 { name: 'Timetable', path: '/faculty/timetable', icon: '🗓️' },
                 { name: 'Announcements', path: '/faculty/announcements', icon: '📢' },
-                { name: 'Feedback', path: '/feedback', icon: '💬' },
-                { name: 'Profile & Settings', path: '/faculty/profile', icon: '⚙️' }
+                { name: 'Feedback', path: '/feedback', icon: '💬' }
             ];
         }
 
@@ -44,8 +44,10 @@ const ERPNavbar = () => {
             return [
                 { name: 'Academic Portal', path: '/student/portal', icon: '🎓' },
                 { name: 'Campus Hub', path: '/dashboard', icon: '🏛️' },
-                { name: 'Quality Feedback', path: '/feedback', icon: '💬' },
-                { name: 'Settings & Profile', path: '/faculty/profile', icon: '⚙️' }
+                { name: 'Library Catalog', path: '/library', icon: '📖' },
+                { name: 'Placement Drives', path: '/placements', icon: '💼' },
+                { name: 'Document Vault', path: '/documents', icon: '📁' },
+                { name: 'Quality Feedback', path: '/feedback', icon: '💬' }
             ];
         }
 
@@ -67,7 +69,7 @@ const ERPNavbar = () => {
                             <div>
                                 <span className="text-lg font-black text-slate-900 tracking-tight">UniConnect</span>
                                 <span className="hidden sm:inline-block ml-1.5 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200">
-                                    ERP
+                                    Enterprise ERP
                                 </span>
                             </div>
                         </Link>
