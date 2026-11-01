@@ -1,4 +1,4 @@
-name: UniConnect CI Pipeline
+name: UniConnect Enterprise ERP CI/CD Pipeline
 
 on:
   push:
@@ -7,30 +7,64 @@ on:
     branches: [ main, master ]
 
 jobs:
-  backend-audit:
+  backend-test:
+    name: Backend Lint, Test & Health Check
     runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: server/package-lock.json
+
       - name: Install Server Dependencies
-        run: cd server && npm ci
+        run: |
+          cd server
+          npm ci
+
+      - name: Verify Server Startup & Health Check
+        env:
+          PORT: 5000
+          MONGO_URI: mongodb://localhost:27017/uniconnect
+          JWT_SECRET: ci_cd_test_secret_key_2026_enterprise
+          CORS_ORIGIN: http://localhost:5173
+          NODE_ENV: test
+        run: |
+          cd server
+          node index.js &
+          sleep 5
+          curl --fail http://localhost:5000/health || exit 1
 
   frontend-build:
+    name: Frontend Lint & Production Build
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20
           cache: 'npm'
           cache-dependency-path: client/package-lock.json
+
       - name: Install Client Dependencies
-        run: cd client && npm ci
-      - name: Build Vite Client
-        run: cd client && npm run build
+        run: |
+          cd client
+          npm ci
+
+      - name: Production Vite Build
+        run: |
+          cd client
+          npm run build
