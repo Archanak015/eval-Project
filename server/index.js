@@ -101,6 +101,7 @@ app.use('/api/admin/academic', require('./routes/adminAcademicRoutes'));
 app.use('/api/student', require('./routes/studentRoutes'));
 app.use('/api/erp', require('./routes/academicApiRoutes'));
 app.use('/api/enterprise', require('./routes/enterpriseRoutes'));
+app.use('/api/v2', require('./routes/v2Routes'));
 
 // 10. 404 Route Handler
 app.use((req, res, next) => {

@@ -16,6 +16,7 @@ const ERPNavbar = () => {
             return [
                 { name: 'Dashboard', path: '/dashboard', icon: '📊' },
                 { name: 'Academic ERP', path: '/admin/academic', icon: '🏛️' },
+                { name: 'AI Insights', path: '/ai/insights', icon: '✨' },
                 { name: 'Examinations', path: '/admin/exams', icon: '📝' },
                 { name: 'Library', path: '/library', icon: '📚' },
                 { name: 'Placements', path: '/placements', icon: '💼' },
@@ -32,10 +33,10 @@ const ERPNavbar = () => {
                 { name: 'Take Attendance', path: '/faculty/attendance', icon: '✅' },
                 { name: 'Upload Marks', path: '/faculty/marks', icon: '📝' },
                 { name: 'Student Directory', path: '/faculty/student-list', icon: '🧑‍🎓' },
+                { name: 'AI Risk Radar', path: '/ai/insights', icon: '✨' },
                 { name: 'Library', path: '/library', icon: '📖' },
                 { name: 'Placements', path: '/placements', icon: '💼' },
                 { name: 'Timetable', path: '/faculty/timetable', icon: '🗓️' },
-                { name: 'Announcements', path: '/faculty/announcements', icon: '📢' },
                 { name: 'Feedback', path: '/feedback', icon: '💬' }
             ];
         }

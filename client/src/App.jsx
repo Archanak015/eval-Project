@@ -31,6 +31,7 @@ import StudentDashboard from './pages/Student/StudentDashboard';
 import LibraryPortal from './pages/Library/LibraryPortal';
 import PlacementPortal from './pages/Placement/PlacementPortal';
 import DocumentVaultPortal from './pages/Documents/DocumentVaultPortal';
+import AIAcademicInsights from './pages/AI/AIAcademicInsights';
 import ERPLayout from './components/ERPLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -55,6 +56,9 @@ function App() {
                             <Route path="/admin/academic" element={<AdminAcademicManagement />} />
                             <Route path="/admin/reports" element={<AdminReports />} />
                             <Route path="/admin/settings" element={<SystemSettings />} />
+
+                            {/* Phase 14 - AI Academic Insights */}
+                            <Route path="/ai/insights" element={<AIAcademicInsights />} />
 
                             {/* Phase 8 - Library Management */}
                             <Route path="/library" element={<LibraryPortal />} />
