@@ -16,6 +16,8 @@ const ERPNavbar = () => {
             return [
                 { name: 'Dashboard', path: '/dashboard', icon: '📊' },
                 { name: 'Academic ERP', path: '/admin/academic', icon: '🏛️' },
+                { name: 'Global Search', path: '/search', icon: '🔍' },
+                { name: 'Workflows', path: '/workflows', icon: '⚡' },
                 { name: 'Finance & Fees', path: '/fees', icon: '💳' },
                 { name: 'Admissions', path: '/admissions', icon: '📋' },
                 { name: 'LMS Portal', path: '/lms', icon: '🎓' },
@@ -23,9 +25,7 @@ const ERPNavbar = () => {
                 { name: 'Alumni', path: '/alumni', icon: '🌐' },
                 { name: 'Facilities', path: '/campus/logistics', icon: '🚌' },
                 { name: 'Compliance', path: '/admin/compliance', icon: '🏆' },
-                { name: 'AI Insights', path: '/ai/insights', icon: '✨' },
-                { name: 'System Ops', path: '/admin/system', icon: '⚡' },
-                { name: 'Settings', path: '/admin/settings', icon: '⚙️' }
+                { name: 'System Ops', path: '/admin/system', icon: '🖥️' }
             ];
         }
 
@@ -47,13 +47,13 @@ const ERPNavbar = () => {
         if (user?.role === 'student') {
             return [
                 { name: 'Academic Portal', path: '/student/portal', icon: '🎓' },
+                { name: 'Campus Search', path: '/search', icon: '🔍' },
+                { name: 'My Approvals', path: '/workflows', icon: '⚡' },
                 { name: 'LMS Courseware', path: '/lms', icon: '📖' },
                 { name: 'Fee Portal', path: '/fees', icon: '💳' },
                 { name: 'Campus Hub', path: '/dashboard', icon: '🏛️' },
                 { name: 'Hostel & Transit', path: '/campus/logistics', icon: '🚌' },
-                { name: 'Alumni Network', path: '/alumni', icon: '🌐' },
-                { name: 'Placement Drives', path: '/placements', icon: '💼' },
-                { name: 'Quality Feedback', path: '/feedback', icon: '💬' }
+                { name: 'Alumni Network', path: '/alumni', icon: '🌐' }
             ];
         }
 

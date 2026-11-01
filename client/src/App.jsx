@@ -40,6 +40,8 @@ import ResearchPortal from './pages/Research/ResearchPortal';
 import AlumniPortal from './pages/Alumni/AlumniPortal';
 import AdmissionPortal from './pages/Admission/AdmissionPortal';
 import SystemAdminPortal from './pages/Admin/SystemAdminPortal';
+import WorkflowApprovalsPortal from './pages/Workflows/WorkflowApprovalsPortal';
+import UniversalSearchPortal from './pages/Search/UniversalSearchPortal';
 import ERPLayout from './components/ERPLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -100,6 +102,12 @@ function App() {
 
                             {/* Phases 34 & 35 - System Administration & BI */}
                             <Route path="/admin/system" element={<SystemAdminPortal />} />
+
+                            {/* Phase 42 - Universal Enterprise Search */}
+                            <Route path="/search" element={<UniversalSearchPortal />} />
+
+                            {/* Phase 43 - Workflow & Approval Engine */}
+                            <Route path="/workflows" element={<WorkflowApprovalsPortal />} />
 
                             {/* Student Dedicated Portal */}
                             <Route path="/student/portal" element={<StudentDashboard />} />
